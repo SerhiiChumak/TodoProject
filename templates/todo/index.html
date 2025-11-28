@@ -29,13 +29,11 @@
         </div>
 
         <div class="btn-group-vertical">
-          <form action="{% url 'toggle-task-status' task.id %}" method="post">
+          <form action="{% url 'toggle_task_status' task.pk %}" method="post">
             {% csrf_token %}
-            {% if task.is_done %}
-              <button type="submit" class="btn btn-warning btn-sm w-100 mb-1">Cancel</button>
-            {% else %}
-              <button type="submit" class="btn btn-success btn-sm w-100 mb-1">Done</button>
-            {% endif %}
+            <button type="submit" class="btn btn-warning btn-sm w-100 mb-1">
+              {% if not task.is_done %}Complete{% else %}Done{% endif %}
+            </button>
           </form>
 
           <a href="{% url 'task-update' task.id %}" class="btn btn-secondary btn-sm mb-1">Update</a>

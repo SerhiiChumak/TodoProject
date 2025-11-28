@@ -27,12 +27,19 @@ class TaskDeleteView(generic.DeleteView):
     success_url = reverse_lazy('index')
     template_name = 'todo/task_confirm_delete.html'
 
-def toggle_task_status(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.is_done = not task.is_done
-    task.save()
-    return redirect('index')
 
+class ToggleTaskStatusView(generic.ListView):
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        task.is_done = not task.is_done
+        task.save()
+        return redirect('index')
+
+# def toggle_task_status(request, pk):
+#     task = get_object_or_404(Task, pk=pk)
+#     task.is_done = not task.is_done
+#     task.save()
+#     return redirect('index')
 
 class TagListView(generic.ListView):
     model = Tag
